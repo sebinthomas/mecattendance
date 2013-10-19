@@ -9,6 +9,6 @@ setup(
     author_email='me@sebin.in',
     url='http://github.com/stc043/mecattendance',
     packages = find_packages(),
-    install_requires=['BeautifulSoup >= 3.2.1']
-    include_package_data=True,
+    install_requires=['BeautifulSoup >= 3.2.1'],
+    include_package_data=True
 )
