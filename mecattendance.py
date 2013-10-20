@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+# Module to scrape attendance information from
+# Govt. Model Engineering College website
+# http://mec.ac.in/attn.
+# Licence: GPL v3
+# If you have any suggestions or have found any bugs, contact
+# me(at)sebin(dot)in
+
+    
 
 __author__='Sebin Thomas (me@sebin.in)'
 __version__='0.1'
@@ -12,7 +20,7 @@ import sys
 import argparse
 
 def empty(seq):
-    """ function to check if a nested list is empty"""
+    """ function to check if a nested list is empty."""
     try:
         return all(map(empty,seq))
     except (TypeError, RuntimeError):
@@ -22,9 +30,10 @@ def empty(seq):
 
 class Attendance:
     """
-    Command line utility to get the attendance from the
+    Class to get the attendance from the
     Model Engineering College website http://mec.ac.in/attn
-    210.212.232.135 is the College website IP. 
+    functions: scrape(),getAttendance(name,batch,legend)
+    getClassAttendance(batch,legend)
     """
     def __init__(self):
         self.name=None
@@ -32,6 +41,7 @@ class Attendance:
         
         
     def scrape(self):
+        """ returns BeautifulSoup object of college attendance page. """
         data=urllib.urlencode({'class':self.batch,'Submit':"View+"})
         try:
             contents=urllib2.urlopen("http://210.212.232.135/attn/view4stud.php",data)
@@ -50,6 +60,7 @@ class Attendance:
     def getClassAttendance(self,batch,legend=None):
         """
         Gets the whole class attendance in a list.
+        arguments: batch,legend.
         legend=True includes the subject codes
         """
         self.batch=batch.strip().upper()
@@ -67,7 +78,10 @@ class Attendance:
             return results[1:]
 
     def getAttendance(self,name,batch,legend=None):
-        """ Gets the individual attendance of students. """
+        """
+        Gets the individual attendance of students.
+        Arguments: name,batch,legend
+        """
         self.name=name.strip()
         classResult=self.getClassAttendance(batch,legend)
         for result in classResult:
