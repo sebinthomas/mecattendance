@@ -63,35 +63,40 @@ class Attendance:
         arguments: batch,legend.
         legend=True includes the subject codes
         """
-        self.batch=batch.strip().upper()
-        page=self.scrape()
-        results=list()
-        if page:
-            records=page.find('table').findAll('tr')
-            for record in records:
-                entry=[str(cell.text) for cell in record.findChildren()]
-                if not empty(entry):
-                    results.append(entry)
-        if legend:
-            return results
+        self.batch=" ".join(batch.strip().upper().split())
+        if self.batch:
+            page=self.scrape()
+            results=list()
+            if page:
+                records=page.find('table').findAll('tr')
+                for record in records:
+                    entry=[str(cell.text) for cell in record.findChildren()]
+                    if not empty(entry):
+                        results.append(entry)
+            if legend:
+                return results
+            else:
+                return results[1:]
         else:
-            return results[1:]
+            return False
 
     def getAttendance(self,name,batch,legend=None):
         """
         Gets the individual attendance of students.
         Arguments: name,batch,legend
         """
-        self.name=name.strip()
-        classResult=self.getClassAttendance(batch,legend)
-        for result in classResult:
-            try:
-                if re.match(self.name,result[1],re.IGNORECASE):
-                    if legend:
-                        return [classResult[0]]+[result]
-                    return result
-            except IndexError:
-                pass
+        self.name=" ".join(name.strip().split())
+        if self.name:
+            classResult=self.getClassAttendance(batch,legend)
+            if classResult:
+                for result in classResult:
+                    try:
+                        if re.match(self.name,result[1],re.IGNORECASE):
+                            if legend:
+                                return [classResult[0]]+[result]
+                            return result
+                    except IndexError:
+                        pass
         return False
 
     
