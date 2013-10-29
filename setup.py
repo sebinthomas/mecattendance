@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from mecattendance import __version__
 
 setup(
@@ -8,7 +8,7 @@ setup(
     author='Sebin Thomas',
     author_email='me@sebin.in',
     url='http://github.com/stc043/mecattendance',
-    packages = find_packages(),
+    py_modules=["mecattendance"],
     install_requires=['BeautifulSoup >= 3.2.1'],
     include_package_data=True
 )
