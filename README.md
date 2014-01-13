@@ -14,15 +14,17 @@ You may need to run the above commands with `sudo`.
 
 To get the attendance of a student, type the following command.
 
-    $ python mecattendance.py -a "name" "class"
+    $ python mecattendance -a "name" "class"
 
 For example:
 
-    $ python mecattendance.py -a "john doe" "c1&2a"
+    $ python mecattendance -a "john doe" "c1&2a"
 
 To get the attendance of the whole class, use
 
-    $ python mecattendance.py -c "class"
+    $ python mecattendance -c "class"
+    
+
     
 ## Module import
 
